@@ -12,3 +12,5 @@ tmp/uploads/*
 
 .env
 ormconfig.json
+
+yarn.lock

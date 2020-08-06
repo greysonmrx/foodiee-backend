@@ -1,8 +1,8 @@
-import AppError from '@shared/errors/AppError';
+import AppError from '../../src/shared/errors/AppError';
 
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
-import CreateUserService from './CreateUserService';
+import FakeUsersRepository from '../../src/modules/users/repositories/fakes/FakeUsersRepository';
+import FakeHashProvider from '../../src/modules/users/providers/HashProvider/fakes/FakeHashProvider';
+import CreateUserService from '../../src/modules/users/services/CreateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;

@@ -4,9 +4,11 @@ import UsersController from '../controllers/UsersController';
 
 import UserStoreValidator from '../validators/UserStoreValidator';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const routes = Router();
 const usersController = new UsersController();
 
-routes.post('/', UserStoreValidator, usersController.store);
+routes.post('/', ensureAuthenticated, UserStoreValidator, usersController.store);
 
 export default routes;

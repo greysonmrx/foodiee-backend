@@ -2,8 +2,8 @@ import { inject, injectable } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import AppError from '@shared/errors/AppError';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUser from '../entities/IUser';
 

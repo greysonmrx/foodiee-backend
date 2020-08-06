@@ -8,6 +8,12 @@ import IUsersRepository from '../IUsersRepository';
 class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
+  public async findById(id: string): Promise<User | undefined> {
+    const findUser = this.users.find(user => user.id === id);
+
+    return findUser;
+  }
+
   public async findByEmail(email: string): Promise<User | undefined> {
     const findUser = this.users.find(user => user.email === email);
 
@@ -27,6 +33,14 @@ class FakeUsersRepository implements IUsersRepository {
     });
 
     this.users.push(user);
+
+    return user;
+  }
+
+  public async update(user: User): Promise<User> {
+    const findIndex = this.users.findIndex(findUser => findUser.id === user.id);
+
+    this.users[findIndex] = user;
 
     return user;
   }

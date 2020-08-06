@@ -6,6 +6,14 @@ import ICreateUsersDTO from '@modules/users/dtos/ICreateUsersDTO';
 import User from '../entities/User';
 
 class UsersRepository implements IUsersRepository {
+  public async findById(id: string): Promise<User | undefined> {
+    const findUser = await this.ormRepository.findOne({
+      where: { id },
+    });
+
+    return findUser;
+  }
+
   private ormRepository: Repository<User>;
 
   constructor() {
@@ -25,6 +33,12 @@ class UsersRepository implements IUsersRepository {
       password,
     });
 
+    await this.ormRepository.save(user);
+
+    return user;
+  }
+
+  public async update(user: User): Promise<User> {
     await this.ormRepository.save(user);
 
     return user;

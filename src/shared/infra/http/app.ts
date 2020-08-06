@@ -4,10 +4,13 @@ import 'dotenv/config';
 import express, { Express, Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import { errors } from 'celebrate';
 
 import createConnection from '@shared/infra/typeorm';
 import AppError from '@shared/errors/AppError';
 import routes from './routes';
+
+import '@shared/container';
 
 class App {
   public server: Express;
@@ -31,6 +34,8 @@ class App {
   }
 
   private exceptionHandler(): void {
+    this.server.use(errors());
+
     this.server.use((err: Error, request: Request, response: Response, _next: NextFunction) => {
       if (err instanceof AppError) {
         return response.status(err.statusCode).json({

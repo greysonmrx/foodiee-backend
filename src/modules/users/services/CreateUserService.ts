@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import AppError from '@shared/errors/AppError';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -39,7 +40,7 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    return user;
+    return classToClass(user);
   }
 }
 

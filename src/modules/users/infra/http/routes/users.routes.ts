@@ -10,6 +10,7 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 const routes = Router();
 const usersController = new UsersController();
 
+routes.get('/', ensureAuthenticated, usersController.index);
 routes.post('/', ensureAuthenticated, UserStoreValidator, usersController.store);
 routes.delete('/:id', ensureAuthenticated, UserDestroyValidator, usersController.destroy);
 

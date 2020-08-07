@@ -7,7 +7,7 @@ import FakeUsersRepository from '../../src/modules/users/repositories/fakes/Fake
 let fakeUsersRepository: FakeUsersRepository;
 let deleteUser: DeleteUserService;
 
-describe('Delete User', () => {
+describe('Delete User Service', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     deleteUser = new DeleteUserService(fakeUsersRepository);

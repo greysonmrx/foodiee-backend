@@ -11,4 +11,5 @@ tmp/uploads/*
 .DS_Store
 
 .env
-ormconfig.json
+
+yarn.lock

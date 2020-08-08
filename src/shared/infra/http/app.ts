@@ -8,6 +8,7 @@ import { errors } from 'celebrate';
 
 import createConnection from '@shared/infra/typeorm';
 import AppError from '@shared/errors/AppError';
+import uploadConfig from '@config/upload';
 import routes from './routes';
 
 import '@shared/container';
@@ -27,6 +28,7 @@ class App {
   private middlewares(): void {
     this.server.use(cors());
     this.server.use(express.json());
+    this.server.use('/files', express.static(uploadConfig.uploadsFolder));
   }
 
   private routes(): void {

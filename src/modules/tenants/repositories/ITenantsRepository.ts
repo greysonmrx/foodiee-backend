@@ -6,6 +6,7 @@ interface ITenantsRepository {
   findById(id: string): Promise<ITenant | undefined>;
   findBySlug(slug: string): Promise<ITenant | undefined>;
   create(data: ICreateTenantsDTO): Promise<ITenant>;
+  update(tenant: ITenant): Promise<ITenant>;
   delete(id: string): Promise<void>;
 }
 

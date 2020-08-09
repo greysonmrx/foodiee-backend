@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 import Tenant from '@modules/tenants/entities/fakes/Tenant';
 import ICreateTenantDTO from '@modules/tenants/dtos/ICreateTenantsDTO';
 
+import ITenant from '@modules/tenants/entities/ITenant';
 import ITenantsRepository from '../ITenantsRepository';
 
 class FakeTenantsRepository implements ITenantsRepository {
@@ -32,6 +33,14 @@ class FakeTenantsRepository implements ITenantsRepository {
     });
 
     this.tenants.push(tenant);
+
+    return tenant;
+  }
+
+  public async update(tenant: ITenant): Promise<ITenant> {
+    const findIndex = this.tenants.findIndex(findTenant => findTenant.id === tenant.id);
+
+    this.tenants[findIndex] = tenant;
 
     return tenant;
   }

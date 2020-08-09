@@ -33,7 +33,7 @@ class AuthenticateUserService {
   }
 
   public async execute({ email, password }: Request): Promise<Response> {
-    const user = await this.usersRepository.findByEmail(email);
+    const user = await this.usersRepository.findByEmail(email, ['avatar']);
 
     if (!user) {
       throw new AppError('Endereço de e-mail ou senha incorretos.', 401);

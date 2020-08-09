@@ -28,7 +28,7 @@ class UpdateProfileService {
   }
 
   public async execute({ user_id, name, email, password, current_password }: Request): Promise<IUser> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(user_id, ['avatar']);
 
     if (!user) {
       throw new AppError('Usuário não encontrado.', 404);

@@ -8,6 +8,12 @@ import IFilesRepository from '../IFilesRepository';
 class FilesRepository implements IFilesRepository {
   private files: File[] = [];
 
+  public async findById(id: string): Promise<File | undefined> {
+    const findFile = this.files.find(file => file.id === id);
+
+    return findFile;
+  }
+
   public async findByPath(path: string): Promise<File | undefined> {
     const findFile = this.files.find(file => file.path === path);
 
@@ -28,6 +34,10 @@ class FilesRepository implements IFilesRepository {
     this.files.push(file);
 
     return file;
+  }
+
+  public async delete(id: string): Promise<void> {
+    this.files = this.files.filter(file => file.id !== id);
   }
 }
 

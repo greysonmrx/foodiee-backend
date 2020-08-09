@@ -4,7 +4,7 @@ import { Expose } from 'class-transformer';
 import uploadConfig from '../../../../../config/upload';
 
 @Entity('files')
-class User {
+class File {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -31,4 +31,4 @@ class User {
   }
 }
 
-export default User;
+export default File;

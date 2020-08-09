@@ -12,6 +12,14 @@ class FilesRepository implements IFilesRepository {
     this.ormRepository = getRepository(File);
   }
 
+  public async findById(id: string): Promise<File | undefined> {
+    const findFile = await this.ormRepository.findOne({
+      where: { id },
+    });
+
+    return findFile;
+  }
+
   public async findByPath(path: string): Promise<File | undefined> {
     const findFile = await this.ormRepository.findOne({
       where: {
@@ -31,6 +39,10 @@ class FilesRepository implements IFilesRepository {
     await this.ormRepository.save(user);
 
     return user;
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
   }
 }
 

@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import AppError from '@shared/errors/AppError';
 
@@ -37,7 +38,7 @@ class UpdateTenantService {
 
     await this.tenantsRepository.update(tenant);
 
-    return tenant;
+    return classToClass(tenant);
   }
 }
 

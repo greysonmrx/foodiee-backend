@@ -11,7 +11,7 @@
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "ts-node -r tsconfig-paths/register src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "cross-env NODE_ENV=test jest --verbose -i",
+    "test": "cross-env NODE_ENV=test jest --verbose -i --bail",
     "pretest": "cross-env NODE_ENV=test ts-node-dev ./node_modules/typeorm/cli.js migration:run"
   },
   "dependencies": {

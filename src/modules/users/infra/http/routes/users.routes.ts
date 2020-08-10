@@ -3,6 +3,7 @@ import { Router } from 'express';
 import UsersController from '../controllers/UsersController';
 import UserAvatarController from '../controllers/UserAvatarController';
 
+import UserIndexValidator from '../validators/UserIndexValidator';
 import UserStoreValidator from '../validators/UserStoreValidator';
 import UserAvatarUpdateValidator from '../validators/UserAvatarUpdateValidator';
 import UserDestroyValidator from '../validators/UserDestroyValidator';
@@ -13,9 +14,9 @@ const routes = Router();
 const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
 
-routes.get('/', ensureAuthenticated, usersController.index);
-routes.post('/', ensureAuthenticated, UserStoreValidator, usersController.store);
+routes.get('/:tenant', ensureAuthenticated, UserIndexValidator, usersController.index);
+routes.post('/:tenant', ensureAuthenticated, UserStoreValidator, usersController.store);
 routes.patch('/', ensureAuthenticated, UserAvatarUpdateValidator, userAvatarController.update);
-routes.delete('/:id', ensureAuthenticated, UserDestroyValidator, usersController.destroy);
+routes.delete('/:user/:tenant', ensureAuthenticated, UserDestroyValidator, usersController.destroy);
 
 export default routes;

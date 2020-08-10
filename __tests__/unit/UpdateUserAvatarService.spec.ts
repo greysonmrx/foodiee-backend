@@ -4,12 +4,14 @@ import AppError from '../../src/shared/errors/AppError';
 
 import UpdateUserAvatarService from '../../src/modules/users/services/UpdateUserAvatarService';
 import FakeUsersRepository from '../../src/modules/users/repositories/fakes/FakeUsersRepository';
+import FakeTenantsRepository from '../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 import FakeFilesRepository from '../../src/modules/files/repositories/fakes/FakeFilesRepository';
 import FakeStorageProvider from '../../src/modules/files/providers/StorageProvider/fakes/FakeStorageProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeFilesRepository: FakeFilesRepository;
 let fakeStorageProvider: FakeStorageProvider;
+let fakeTenantsRepository: FakeTenantsRepository;
 let updateUserAvatar: UpdateUserAvatarService;
 
 describe('Update User Avatar Service', () => {
@@ -17,10 +19,16 @@ describe('Update User Avatar Service', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeFilesRepository = new FakeFilesRepository();
     fakeStorageProvider = new FakeStorageProvider();
+    fakeTenantsRepository = new FakeTenantsRepository();
     updateUserAvatar = new UpdateUserAvatarService(fakeUsersRepository, fakeFilesRepository, fakeStorageProvider);
   });
 
   it('should be able to update the user avatar', async () => {
+    const { id: tenant_id } = await fakeTenantsRepository.create({
+      name: "McDonald's",
+      slug: 'mc-donalds',
+    });
+
     const { id: avatar_id } = await fakeFilesRepository.create({
       name: 'fileName.jpeg',
       path: 'filePath.jpeg',
@@ -30,6 +38,7 @@ describe('Update User Avatar Service', () => {
       name: 'Guilherme Martins',
       email: 'guilhermemartins@armyspy.com',
       password: 'jieNgae7',
+      tenant_id,
     });
 
     await expect(updateUserAvatar.execute({ user_id, avatar_id })).resolves.toHaveProperty('id');
@@ -37,6 +46,11 @@ describe('Update User Avatar Service', () => {
 
   it('should be able to delete the old user avatar when updating a new one', async () => {
     const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
+
+    const { id: tenant_id } = await fakeTenantsRepository.create({
+      name: "McDonald's",
+      slug: 'mc-donalds',
+    });
 
     const { id: avatar_id_1 } = await fakeFilesRepository.create({
       name: 'fileName1.jpeg',
@@ -52,6 +66,7 @@ describe('Update User Avatar Service', () => {
       name: 'Guilherme Martins',
       email: 'guilhermemartins@armyspy.com',
       password: 'jieNgae7',
+      tenant_id,
     });
 
     await updateUserAvatar.execute({ user_id: user.id, avatar_id: avatar_id_1 });
@@ -71,10 +86,16 @@ describe('Update User Avatar Service', () => {
   });
 
   it('should not be able to update avatar with a non-existing file', async () => {
+    const { id: tenant_id } = await fakeTenantsRepository.create({
+      name: "McDonald's",
+      slug: 'mc-donalds',
+    });
+
     const { id: user_id } = await fakeUsersRepository.create({
       name: 'Guilherme Martins',
       email: 'guilhermemartins@armyspy.com',
       password: 'jieNgae7',
+      tenant_id,
     });
 
     await expect(

@@ -26,13 +26,13 @@ describe('Delete tenant', () => {
   });
 
   afterEach(async () => {
-    await connection.query('DELETE FROM tenants');
     await connection.query('DELETE FROM users');
+    await connection.query('DELETE FROM tenants');
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM tenants');
     await connection.query('DELETE FROM users');
+    await connection.query('DELETE FROM tenants');
     const mainConnection = getConnection();
 
     await connection.close();

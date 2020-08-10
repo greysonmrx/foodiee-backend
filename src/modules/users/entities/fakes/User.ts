@@ -7,6 +7,8 @@ class User {
 
   password: string;
 
+  tenant_id: string;
+
   avatar_id: string;
 
   created_at: Date;

@@ -4,13 +4,13 @@ import AppError from '../../src/shared/errors/AppError';
 
 import UpdateTenantLogoService from '../../src/modules/tenants/services/UpdateTenantLogoService';
 import DeleteTenantService from '../../src/modules/tenants/services/DeleteTenantService';
-import TenantsRepostiory from '../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
+import FakeTenantsRepository from '../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 import FakeFilesRepository from '../../src/modules/files/repositories/fakes/FakeFilesRepository';
 import FakeStorageProvider from '../../src/modules/files/providers/StorageProvider/fakes/FakeStorageProvider';
 
 let fakeFilesRepository: FakeFilesRepository;
 let fakeStorageProvider: FakeStorageProvider;
-let tenantsRepostiory: TenantsRepostiory;
+let fakeTenantsRepository: FakeTenantsRepository;
 let deleteTenant: DeleteTenantService;
 let updateTenantLogo: UpdateTenantLogoService;
 
@@ -18,13 +18,13 @@ describe('Delete Tenant Service', () => {
   beforeAll(() => {
     fakeFilesRepository = new FakeFilesRepository();
     fakeStorageProvider = new FakeStorageProvider();
-    tenantsRepostiory = new TenantsRepostiory();
-    deleteTenant = new DeleteTenantService(tenantsRepostiory, fakeFilesRepository, fakeStorageProvider);
-    updateTenantLogo = new UpdateTenantLogoService(tenantsRepostiory, fakeFilesRepository, fakeStorageProvider);
+    fakeTenantsRepository = new FakeTenantsRepository();
+    deleteTenant = new DeleteTenantService(fakeTenantsRepository, fakeFilesRepository, fakeStorageProvider);
+    updateTenantLogo = new UpdateTenantLogoService(fakeTenantsRepository, fakeFilesRepository, fakeStorageProvider);
   });
 
   it('should be able to delete a tenant', async () => {
-    const { id: tenant_id } = await tenantsRepostiory.create({
+    const { id: tenant_id } = await fakeTenantsRepository.create({
       name: "McDonald's",
       slug: 'mc-donalds',
     });
@@ -40,7 +40,7 @@ describe('Delete Tenant Service', () => {
       path: 'filePath.jpeg',
     });
 
-    const { id: tenant_id } = await tenantsRepostiory.create({
+    const { id: tenant_id } = await fakeTenantsRepository.create({
       name: "McDonald's",
       slug: 'mc-donalds',
     });
@@ -49,7 +49,7 @@ describe('Delete Tenant Service', () => {
 
     await deleteTenant.execute({ tenant_id });
 
-    const tenant = await tenantsRepostiory.findById(tenant_id);
+    const tenant = await fakeTenantsRepository.findById(tenant_id);
 
     expect(deleteFile).toHaveBeenCalledWith('filePath.jpeg');
     expect(tenant).toBeFalsy();

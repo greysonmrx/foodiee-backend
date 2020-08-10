@@ -22,7 +22,7 @@ class UpdateTenantService {
   }
 
   public async execute({ tenant_id, name, slug }: Request): Promise<ITenant> {
-    const tenant = await this.tenantsRepository.findById(tenant_id);
+    const tenant = await this.tenantsRepository.findById(tenant_id, ['logo']);
 
     if (!tenant) {
       throw new AppError('Loja não encontrada.', 404);

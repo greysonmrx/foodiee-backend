@@ -49,9 +49,11 @@ class UpdateTenantLogoService {
       await this.filesRepository.delete(tenantLogoExists.id);
     }
 
-    tenant.logo_id = logo.id;
+    Object.assign(tenant, { logo_id });
 
     await this.tenantsRepository.update(tenant);
+
+    Object.assign(tenant, { logo });
 
     return classToClass(tenant);
   }

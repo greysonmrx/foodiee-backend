@@ -21,6 +21,10 @@ class FakeTenantsRepository implements ITenantsRepository {
     return findTenant;
   }
 
+  public async findAll(): Promise<Tenant[]> {
+    return this.tenants;
+  }
+
   public async create({ name, slug }: ICreateTenantDTO): Promise<Tenant> {
     const tenant = new Tenant();
 

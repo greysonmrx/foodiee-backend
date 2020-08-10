@@ -2,6 +2,7 @@ import { v4 } from 'uuid';
 
 import User from '@modules/users/entities/fakes/User';
 import ICreateUsersDTO from '@modules/users/dtos/ICreateUsersDTO';
+import IFindAllUsersByTenantDTO from '@modules/users/dtos/IFindAllUsersDTO';
 
 import IUsersRepository from '../IUsersRepository';
 
@@ -20,15 +21,11 @@ class FakeUsersRepository implements IUsersRepository {
     return findUser;
   }
 
-  public async findAll(except_user_id?: string): Promise<User[]> {
-    if (except_user_id) {
-      return this.users.filter(user => user.id !== except_user_id);
-    }
-
-    return this.users;
+  public async findAll({ tenant_id, except_user_id }: IFindAllUsersByTenantDTO): Promise<User[]> {
+    return this.users.filter(user => user.id !== except_user_id && user.tenant_id === tenant_id);
   }
 
-  public async create({ name, email, password }: ICreateUsersDTO): Promise<User> {
+  public async create({ name, email, password, tenant_id }: ICreateUsersDTO): Promise<User> {
     const user = new User();
 
     Object.assign(user, {
@@ -36,6 +33,7 @@ class FakeUsersRepository implements IUsersRepository {
       name,
       email,
       password,
+      tenant_id,
       created_at: String(new Date()),
       updated_at: String(new Date()),
     });

@@ -165,14 +165,13 @@ describe('Update user', () => {
   });
 
   it('should not be able to update user profile with duplicate email', async () => {
-    await request(app)
-      .post('/users')
-      .send({
+    await usersRepository.save(
+      usersRepository.create({
         name: 'Guilherme Martins',
         email: 'guilhermemartins@armyspy.com',
         password: 'jieNgae7',
-      })
-      .set('Authorization', `Bearer ${token}`);
+      }),
+    );
 
     const response = await request(app)
       .put('/profiles')

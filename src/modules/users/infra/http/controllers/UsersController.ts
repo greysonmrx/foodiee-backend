@@ -9,7 +9,10 @@ class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listUsers = container.resolve(ListUsersService);
 
-    const users = await listUsers.execute({ except_user_id: request.user.id });
+    const users = await listUsers.execute({
+      except_user_id: request.user.id,
+      tenant_id: request.params.tenant,
+    });
 
     return response.status(200).json(users);
   }
@@ -19,17 +22,22 @@ class UsersController {
 
     const createUser = container.resolve(CreateUserService);
 
-    const user = await createUser.execute({ name, email, password });
+    const user = await createUser.execute({
+      name,
+      email,
+      password,
+      tenant_id: request.params.tenant,
+    });
 
     return response.status(201).json(user);
   }
 
   public async destroy(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { user, tenant } = request.params;
 
     const deleteUser = container.resolve(DeleteUserService);
 
-    await deleteUser.execute({ id });
+    await deleteUser.execute({ id: user, tenant_id: tenant });
 
     return response.status(204).json();
   }

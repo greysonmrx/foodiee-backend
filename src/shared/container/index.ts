@@ -9,6 +9,11 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import IFilesRepository from '@modules/files/repositories/IFilesRepository';
 import FilesRepository from '@modules/files/infra/typeorm/repositories/FilesRepository';
 
+import ITenantsRepository from '@modules/tenants/repositories/ITenantsRepository';
+import TenantsRepository from '@modules/tenants/infra/typeorm/repositories/TenantsRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IFilesRepository>('FilesRepository', FilesRepository);
+
+container.registerSingleton<ITenantsRepository>('TenantsRepository', TenantsRepository);

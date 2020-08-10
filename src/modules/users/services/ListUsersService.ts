@@ -18,7 +18,7 @@ class ListUsersService {
   }
 
   public async execute({ except_user_id }: Request): Promise<IUser[]> {
-    const users = await this.usersRepository.findAll(except_user_id);
+    const users = await this.usersRepository.findAll(except_user_id, ['avatar']);
 
     return classToClass(users);
   }

@@ -6,30 +6,32 @@ import ICreateUsersDTO from '@modules/users/dtos/ICreateUsersDTO';
 import User from '../entities/User';
 
 class UsersRepository implements IUsersRepository {
-  public async findById(id: string): Promise<User | undefined> {
-    const findUser = await this.ormRepository.findOne({
-      where: { id },
-    });
-
-    return findUser;
-  }
-
   private ormRepository: Repository<User>;
 
   constructor() {
     this.ormRepository = getRepository(User);
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
-    const findUser = await this.ormRepository.findOne({ where: { email } });
+  public async findById(id: string, relations?: Array<string>): Promise<User | undefined> {
+    const findUser = await this.ormRepository.findOne({
+      where: { id },
+      relations,
+    });
 
     return findUser;
   }
 
-  public async findAll(except_user_id?: string): Promise<User[]> {
+  public async findByEmail(email: string, relations?: Array<string>): Promise<User | undefined> {
+    const findUser = await this.ormRepository.findOne({ where: { email }, relations });
+
+    return findUser;
+  }
+
+  public async findAll(except_user_id?: string, relations?: Array<string>): Promise<User[]> {
     if (except_user_id) {
       return this.ormRepository.find({
         where: { id: Not(except_user_id) },
+        relations,
       });
     }
 

@@ -13,7 +13,7 @@ let token: string;
 let connection: Connection;
 let usersRepository: Repository<User>;
 
-describe('Delete user', () => {
+describe('List users', () => {
   beforeAll(async () => {
     connection = await createConnection('test');
     usersRepository = getRepository(User);

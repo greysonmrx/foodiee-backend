@@ -3,7 +3,7 @@ import { Connection, getRepository, getConnection, Repository } from 'typeorm';
 import { runSeeder } from 'typeorm-seeding';
 import { v4 } from 'uuid';
 
-import File from '../../src/modules/files/infra/typeorm/entities/File';
+import Tenant from '../../src/modules/tenants/infra/typeorm/entities/Tenant';
 import TenantAdminSeed from '../../src/shared/infra/typeorm/seeds/create-tenant-admin';
 import createConnection from '../../src/shared/infra/typeorm/index';
 import getTokenJWT from '../utils/getTokenJWT';
@@ -12,12 +12,12 @@ import app from '../../src/shared/infra/http/app';
 
 let token: string;
 let connection: Connection;
-let filesRepository: Repository<File>;
+let tenantsRepository: Repository<Tenant>;
 
-describe('Update user avatar', () => {
+describe('Delete tenant', () => {
   beforeAll(async () => {
     connection = await createConnection('test');
-    filesRepository = getRepository(File);
+    tenantsRepository = getRepository(Tenant);
   });
 
   beforeEach(async () => {
@@ -26,45 +26,36 @@ describe('Update user avatar', () => {
   });
 
   afterEach(async () => {
+    await connection.query('DELETE FROM tenants');
     await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM files');
   });
 
   afterAll(async () => {
+    await connection.query('DELETE FROM tenants');
     await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM files');
     const mainConnection = getConnection();
 
     await connection.close();
     await mainConnection.close();
   });
 
-  it('should be able to update the user avatar', async () => {
-    const avatar = filesRepository.create({
-      name: 'fileName.jpeg',
-      path: 'filePath.jpeg',
+  it('should be able to delete a tenant', async () => {
+    const tenant = tenantsRepository.create({ name: "McDonald's", slug: 'mc-donalds' });
+
+    await tenantsRepository.save(tenant);
+
+    const response = await request(app).delete(`/tenants/${tenant.id}`).set('Authorization', `Bearer ${token}`);
+
+    const tenantExists = await tenantsRepository.findOne({
+      where: { slug: 'mc-donalds' },
     });
 
-    await filesRepository.save(avatar);
-
-    const response = await request(app)
-      .patch('/users')
-      .send({
-        avatar_id: avatar.id,
-      })
-      .set('Authorization', `Bearer ${token}`);
-
-    const avatarExists = await filesRepository.findOne({
-      where: { name: 'fileName.jpeg' },
-    });
-
-    expect(avatarExists).toBeTruthy();
-
-    expect(response.status).toBe(200);
+    expect(tenantExists).toBeFalsy();
+    expect(response.status).toBe(204);
   });
 
-  it('should not be able to update the user avatar without a token', async () => {
-    const response = await request(app).patch('/users');
+  it('should not be able to delete a tenant without a token', async () => {
+    const response = await request(app).delete(`/tenants/${v4()}`);
 
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject(
@@ -75,8 +66,8 @@ describe('Update user avatar', () => {
     );
   });
 
-  it('should not be able to update the user avatar with a invalid token', async () => {
-    const response = await request(app).patch('/users').set('Authorization', 'Bearer invalid.token');
+  it('should not be able to delete a tenant with a invalid token', async () => {
+    const response = await request(app).delete(`/tenants/${v4()}`).set('Authorization', `Bearer invalid.token`);
 
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject(
@@ -87,13 +78,8 @@ describe('Update user avatar', () => {
     );
   });
 
-  it('should not be able to update the user avatar with invalid file id', async () => {
-    const response = await request(app)
-      .patch('/users')
-      .send({
-        avatar_id: 'invalid-id',
-      })
-      .set('Authorization', `Bearer ${token}`);
+  it('should not be able to delete a tenant with invalid id', async () => {
+    const response = await request(app).delete(`/tenants/invalid-id`).set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject(
@@ -104,19 +90,14 @@ describe('Update user avatar', () => {
     );
   });
 
-  it('should not be able to update avatar with a non-existing file', async () => {
-    const response = await request(app)
-      .patch('/users')
-      .send({
-        avatar_id: v4(),
-      })
-      .set('Authorization', `Bearer ${token}`);
+  it('should not be able to delete a non-existing tenant', async () => {
+    const response = await request(app).delete(`/tenants/${v4()}`).set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(404);
     expect(response.body).toMatchObject(
       expect.objectContaining({
         status: expect.stringMatching('error'),
-        message: expect.stringMatching('Arquivo não encontrado.'),
+        message: expect.stringMatching('Loja não encontrada.'),
       }),
     );
   });

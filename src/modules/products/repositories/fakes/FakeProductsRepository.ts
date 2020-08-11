@@ -54,6 +54,10 @@ class FakeProductsRepository implements IProductsRepository {
 
     return product;
   }
+
+  public async delete(id: string): Promise<void> {
+    this.products = this.products.filter(product => product.id === id);
+  }
 }
 
 export default FakeProductsRepository;

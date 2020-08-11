@@ -8,6 +8,7 @@ interface IProductsRepository {
   findAll(tenant_id: string): Promise<IProduct[]>;
   create(data: ICreateProductsDTO): Promise<IProduct>;
   update(product: IProduct): Promise<IProduct>;
+  delete(id: string): Promise<void>;
 }
 
 export default IProductsRepository;

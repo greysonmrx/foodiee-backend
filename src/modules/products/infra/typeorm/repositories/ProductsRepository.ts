@@ -60,6 +60,10 @@ class ProductsRepository implements IProductsRepository {
 
     return product;
   }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 }
 
 export default ProductsRepository;

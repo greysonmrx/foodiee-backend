@@ -1,8 +1,9 @@
 import { Repository, getRepository } from 'typeorm';
 
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
-
+import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 import ICreateProductsDTO from '@modules/products/dtos/ICreateProductsDTO';
+
 import Product from '../entities/Product';
 
 class ProductsRepository implements IProductsRepository {
@@ -10,6 +11,14 @@ class ProductsRepository implements IProductsRepository {
 
   constructor() {
     this.ormRepository = getRepository(Product);
+  }
+
+  public async findById({ id, tenant_id }: IFindProductsByIdDTO): Promise<Product | undefined> {
+    const product = await this.ormRepository.findOne({
+      where: { id, tenant_id },
+    });
+
+    return product;
   }
 
   public async findAll(tenant_id: string): Promise<Product[]> {
@@ -41,6 +50,12 @@ class ProductsRepository implements IProductsRepository {
       promotion_price,
     });
 
+    await this.ormRepository.save(product);
+
+    return product;
+  }
+
+  public async update(product: Product): Promise<Product> {
     await this.ormRepository.save(product);
 
     return product;

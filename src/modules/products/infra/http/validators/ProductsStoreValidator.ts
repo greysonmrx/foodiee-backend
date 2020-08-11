@@ -22,7 +22,6 @@ export default (request: Request, response: Response, next: NextFunction): Reque
       price: Joi.number().required().messages({
         'any.required': `O campo 'preço' não pode estar vazio`,
         'number.base': `O campo 'preço' precisa ser um número`,
-        // 'string.empty': `O campo 'preço' não pode estar vazio`,
       }),
       promotion_price: Joi.number().messages({ 'number.base': `O campo 'promoção' precisa ser um número` }),
       category_id: Joi.string().uuid().required().messages({

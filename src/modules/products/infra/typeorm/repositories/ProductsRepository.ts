@@ -12,6 +12,14 @@ class ProductsRepository implements IProductsRepository {
     this.ormRepository = getRepository(Product);
   }
 
+  public async findAll(tenant_id: string): Promise<Product[]> {
+    const products = this.ormRepository.find({
+      where: { tenant_id },
+    });
+
+    return products;
+  }
+
   public async create({
     name,
     price,

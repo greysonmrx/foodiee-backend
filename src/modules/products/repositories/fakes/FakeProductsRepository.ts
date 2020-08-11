@@ -5,6 +5,12 @@ import IProductsRepository from '../IProductsRepository';
 class FakeProductsRepository implements IProductsRepository {
   private products: Product[] = [];
 
+  public async findAll(tenant_id: string): Promise<Product[]> {
+    const findProducts = this.products.filter(product => product.tenant_id === tenant_id);
+
+    return findProducts;
+  }
+
   public async create({
     name,
     price,
@@ -27,6 +33,8 @@ class FakeProductsRepository implements IProductsRepository {
       paused,
       promotion_price,
     });
+
+    this.products.push(product);
 
     return product;
   }

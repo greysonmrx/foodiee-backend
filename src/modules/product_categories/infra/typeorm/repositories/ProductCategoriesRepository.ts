@@ -21,6 +21,14 @@ class ProductCategoriesRepository implements IProductCategoriesRepository {
     return findProductCategory;
   }
 
+  public async findAll(tenant_id: string): Promise<ProductCategory[]> {
+    const findProductCategories = await this.ormRepository.find({
+      where: { tenant_id },
+    });
+
+    return findProductCategories;
+  }
+
   public async create({ name, tenant_id }: ICreateProductCategoriesDTO): Promise<ProductCategory> {
     const produtCategory = this.ormRepository.create({ name, tenant_id });
 

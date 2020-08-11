@@ -1,6 +1,6 @@
-interface ICreateProductCatrgoriesDTO {
+interface ICreateProductCategoriesDTO {
   name: string;
   tenant_id: string;
 }
 
-export default ICreateProductCatrgoriesDTO;
+export default ICreateProductCategoriesDTO;

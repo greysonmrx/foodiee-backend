@@ -15,6 +15,14 @@ class FakeProductCategoriesRepository implements IProductCategoriesRepository {
     return findProductCategory;
   }
 
+  public async findAll(tenant_id: string): Promise<ProductCategory[]> {
+    const findProductCategories = this.productCategories.filter(
+      productCategory => productCategory.tenant_id === tenant_id,
+    );
+
+    return findProductCategories;
+  }
+
   public async create({ name, tenant_id }: ICreateProductCategoriesDTO): Promise<ProductCategory> {
     const productCategory = new ProductCategory();
 

@@ -51,6 +51,10 @@ class FakeProductCategoriesRepository implements IProductCategoriesRepository {
 
     return productCateogry;
   }
+
+  public async delete(id: string): Promise<void> {
+    this.productCategories = this.productCategories.filter(productCategory => productCategory.id !== id);
+  }
 }
 
 export default FakeProductCategoriesRepository;

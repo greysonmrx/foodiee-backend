@@ -10,6 +10,7 @@ interface IProductCategoriesRepository {
   findAll(tenant_id: string): Promise<IProductCategory[]>;
   create(data: ICreateProductCategoriesDTO): Promise<IProductCategory>;
   update(productCategory: IProductCategory): Promise<IProductCategory>;
+  delete(id: string): Promise<void>;
 }
 
 export default IProductCategoriesRepository;

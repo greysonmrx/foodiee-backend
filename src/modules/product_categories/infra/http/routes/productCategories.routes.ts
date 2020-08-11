@@ -7,6 +7,7 @@ import ProductCategoriesController from '../controllers/ProductCategoriesControl
 import ProductCategoriesIndexValidator from '../validators/ProductCategoriesIndexValidator';
 import ProductCategoriesStoreValidator from '../validators/ProductCategoriesStoreValidator';
 import ProductCategoriesUpdateValidator from '../validators/ProductCategoriesUpdateValidator';
+import ProductCategoriesDestroyValidator from '../validators/ProductCategoriesDestroyValidator';
 
 const routes = Router();
 const productCategoriesController = new ProductCategoriesController();
@@ -14,5 +15,11 @@ const productCategoriesController = new ProductCategoriesController();
 routes.get('/:tenant', ensureAuthenticated, ProductCategoriesIndexValidator, productCategoriesController.index);
 routes.post('/:tenant', ensureAuthenticated, ProductCategoriesStoreValidator, productCategoriesController.store);
 routes.patch('/:tenant', ensureAuthenticated, ProductCategoriesUpdateValidator, productCategoriesController.update);
+routes.delete(
+  '/:product_category/:tenant',
+  ensureAuthenticated,
+  ProductCategoriesDestroyValidator,
+  productCategoriesController.destroy,
+);
 
 export default routes;

@@ -5,8 +5,8 @@ export default (request: Request, response: Response, next: NextFunction): Reque
   return celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       tenant: Joi.string().uuid().required().messages({
-        'any.required': `O campo 'loja' não pode estar vazio`,
-        'string.empty': `O campo 'loja' não pode estar vazio`,
+        'any.required': `O parâmetro 'loja' não pode estar vazio`,
+        'string.empty': `O parâmetro 'loja' não pode estar vazio`,
         'string.guid': `Insira uma loja válida`,
       }),
     }),

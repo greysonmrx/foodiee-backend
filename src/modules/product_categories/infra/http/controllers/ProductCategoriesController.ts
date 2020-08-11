@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import ListProductCategoriesService from '@modules/product_categories/services/ListProductCategoriesService';
 import CreateProductCategoryService from '@modules/product_categories/services/CreateProductCategoryService';
 import UpdateProductCategoryService from '@modules/product_categories/services/UpdateProductCategoryService';
+import DeleteProductCategoryService from '@modules/product_categories/services/DeleteProductCategoryService';
 
 class ProductCategoriesController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -37,6 +38,16 @@ class ProductCategoriesController {
     });
 
     return response.status(200).json(productCategory);
+  }
+
+  public async destroy(request: Request, response: Response): Promise<Response> {
+    const { product_category: id, tenant } = request.params;
+
+    const deleteProductCategory = container.resolve(DeleteProductCategoryService);
+
+    await deleteProductCategory.execute({ id, tenant_id: tenant });
+
+    return response.status(204).json();
   }
 }
 

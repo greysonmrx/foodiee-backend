@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import ListProductCategoriesService from '@modules/product_categories/services/ListProductCategoriesService';
 import CreateProductCategoryService from '@modules/product_categories/services/CreateProductCategoryService';
+import UpdateProductCategoryService from '@modules/product_categories/services/UpdateProductCategoryService';
 
 class ProductCategoriesController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -22,6 +23,20 @@ class ProductCategoriesController {
     });
 
     return response.status(201).json(productCategory);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id, name } = request.body;
+
+    const updateProductCategory = container.resolve(UpdateProductCategoryService);
+
+    const productCategory = await updateProductCategory.execute({
+      id,
+      name,
+      tenant_id: request.params.tenant,
+    });
+
+    return response.status(200).json(productCategory);
   }
 }
 

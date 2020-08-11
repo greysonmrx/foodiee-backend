@@ -3,6 +3,7 @@ import { Repository, getRepository } from 'typeorm';
 import IProductCategoriesRepository from '@modules/product_categories/repositories/IProductCategoriesRepository';
 import IFindProductCategoriesByNameDTO from '@modules/product_categories/dtos/IFindProductCategoriesByNameDTO';
 import ICreateProductCategoriesDTO from '@modules/product_categories/dtos/ICreateProductCategoriesDTO';
+import IFindProductCategoriesByIdDTO from '@modules/product_categories/dtos/IFindProductCategoriesByIdDTO';
 
 import ProductCategory from '../entities/ProductCategory';
 
@@ -11,6 +12,14 @@ class ProductCategoriesRepository implements IProductCategoriesRepository {
 
   constructor() {
     this.ormRepository = getRepository(ProductCategory);
+  }
+
+  public async findById({ id, tenant_id }: IFindProductCategoriesByIdDTO): Promise<ProductCategory | undefined> {
+    const findProductCategory = await this.ormRepository.findOne({
+      where: { id, tenant_id },
+    });
+
+    return findProductCategory;
   }
 
   public async findByName({ name, tenant_id }: IFindProductCategoriesByNameDTO): Promise<ProductCategory | undefined> {
@@ -35,6 +44,12 @@ class ProductCategoriesRepository implements IProductCategoriesRepository {
     await this.ormRepository.save(produtCategory);
 
     return produtCategory;
+  }
+
+  public async update(productCategory: ProductCategory): Promise<ProductCategory> {
+    await this.ormRepository.save(productCategory);
+
+    return productCategory;
   }
 }
 

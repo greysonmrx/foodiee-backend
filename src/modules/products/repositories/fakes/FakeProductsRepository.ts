@@ -2,6 +2,7 @@ import Product from '@modules/products/entities/fakes/Product';
 import ICreateProductsDTO from '@modules/products/dtos/ICreateProductsDTO';
 import IFindProductsByIdDTO from '@modules/products/dtos/IFindProductsByIdDTO';
 
+import { v4 } from 'uuid';
 import IProductsRepository from '../IProductsRepository';
 
 class FakeProductsRepository implements IProductsRepository {
@@ -32,6 +33,7 @@ class FakeProductsRepository implements IProductsRepository {
     const product = new Product();
 
     Object.assign(product, {
+      id: v4(),
       name,
       price,
       description,
@@ -40,6 +42,8 @@ class FakeProductsRepository implements IProductsRepository {
       image_id,
       paused,
       promotion_price,
+      created_at: String(new Date()),
+      updated_at: String(new Date()),
     });
 
     this.products.push(product);

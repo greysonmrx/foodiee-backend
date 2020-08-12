@@ -5,7 +5,6 @@ import AppError from '@shared/errors/AppError';
 import ITenantsRepository from '@modules/tenants/repositories/ITenantsRepository';
 
 import IProductCategoriesRepository from '../repositories/IProductCategoriesRepository';
-import IProductCategory from '../entities/IProductCategory';
 
 interface Request {
   id: string;
@@ -24,7 +23,7 @@ class DeleteProductCategoryService {
     /* Anything */
   }
 
-  public async execute({ id, tenant_id }: Request): Promise<IProductCategory> {
+  public async execute({ id, tenant_id }: Request): Promise<void> {
     const checkTenantExists = await this.tenantsRepository.findById(tenant_id);
 
     if (!checkTenantExists) {
@@ -38,8 +37,6 @@ class DeleteProductCategoryService {
     }
 
     await this.productCategoriesRepository.delete(productCategory.id);
-
-    return productCategory;
   }
 }
 

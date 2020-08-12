@@ -3,6 +3,7 @@ import ICreateProductCategoriesDTO from '@modules/product_categories/dtos/ICreat
 import IFindProductCategoriesByNameDTO from '@modules/product_categories/dtos/IFindProductCategoriesByNameDTO';
 
 import IFindProductCategoriesByIdDTO from '@modules/product_categories/dtos/IFindProductCategoriesByIdDTO';
+import { v4 } from 'uuid';
 import IProductCategoriesRepository from '../IProductCategoriesRepository';
 
 class FakeProductCategoriesRepository implements IProductCategoriesRepository {
@@ -35,7 +36,13 @@ class FakeProductCategoriesRepository implements IProductCategoriesRepository {
   public async create({ name, tenant_id }: ICreateProductCategoriesDTO): Promise<ProductCategory> {
     const productCategory = new ProductCategory();
 
-    Object.assign(productCategory, { name, tenant_id });
+    Object.assign(productCategory, {
+      id: v4(),
+      name,
+      tenant_id,
+      created_at: String(new Date()),
+      updated_at: String(new Date()),
+    });
 
     this.productCategories.push(productCategory);
 

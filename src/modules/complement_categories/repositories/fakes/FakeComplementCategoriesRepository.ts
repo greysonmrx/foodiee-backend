@@ -8,6 +8,12 @@ import IComplementCategoriesRepository from '../IComplementCategoriesRepository'
 class ComplementCategoriesRepository implements IComplementCategoriesRepository {
   private complementCategories: ComplementCategory[] = [];
 
+  public async findById(id: string): Promise<ComplementCategory | undefined> {
+    const findComplementCategory = this.complementCategories.find(complementCategory => complementCategory.id === id);
+
+    return findComplementCategory;
+  }
+
   public async create({
     name,
     max,
@@ -29,6 +35,16 @@ class ComplementCategoriesRepository implements IComplementCategoriesRepository 
     });
 
     this.complementCategories.push(complementCategory);
+
+    return complementCategory;
+  }
+
+  public async update(complementCategory: ComplementCategory): Promise<ComplementCategory> {
+    const findIndex = this.complementCategories.findIndex(
+      findComplementCategory => findComplementCategory.id === complementCategory.id,
+    );
+
+    this.complementCategories[findIndex] = complementCategory;
 
     return complementCategory;
   }

@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
+import Tenant from '../../../../tenants/infra/typeorm/entities/Tenant';
 import File from '../../../../files/infra/typeorm/entities/File';
 
 @Entity('users')
@@ -21,6 +22,13 @@ class User {
 
   @Column()
   email: string;
+
+  @Column()
+  tenant_id: string;
+
+  @OneToOne(() => Tenant)
+  @JoinColumn({ name: 'tenant_id' })
+  tenant: Tenant;
 
   @Column()
   avatar_id: string;

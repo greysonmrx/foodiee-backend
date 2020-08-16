@@ -12,8 +12,18 @@ import FilesRepository from '@modules/files/infra/typeorm/repositories/FilesRepo
 import ITenantsRepository from '@modules/tenants/repositories/ITenantsRepository';
 import TenantsRepository from '@modules/tenants/infra/typeorm/repositories/TenantsRepository';
 
+import IProductCategoriesRepository from '@modules/product_categories/repositories/IProductCategoriesRepository';
+import ProductCategoriesRepository from '@modules/product_categories/infra/typeorm/repositories/ProductCategoriesRepository';
+
+import IProductsRepository from '@modules/products/repositories/IProductsRepository';
+import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IFilesRepository>('FilesRepository', FilesRepository);
 
 container.registerSingleton<ITenantsRepository>('TenantsRepository', TenantsRepository);
+
+container.registerSingleton<IProductCategoriesRepository>('ProductCategoriesRepository', ProductCategoriesRepository);
+
+container.registerSingleton<IProductsRepository>('ProductsRepository', ProductsRepository);

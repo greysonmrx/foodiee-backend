@@ -14,6 +14,14 @@ class ComplementCategoriesRepository implements IComplementCategoriesRepository 
     return findComplementCategory;
   }
 
+  public async findAll(product_id: string): Promise<ComplementCategory[]> {
+    const findComplementCategories = this.complementCategories.filter(
+      complementCategory => complementCategory.product_id === product_id,
+    );
+
+    return findComplementCategories;
+  }
+
   public async create({
     name,
     max,

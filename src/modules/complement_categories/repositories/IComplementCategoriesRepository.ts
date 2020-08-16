@@ -4,6 +4,7 @@ import ICreateComplementCategoriesDTO from '../dtos/ICreateComplementCategoriesD
 
 interface IComplementCategoriesRepository {
   findById(id: string): Promise<IComplementCategory | undefined>;
+  findAll(product_id: string): Promise<IComplementCategory[]>;
   create(data: ICreateComplementCategoriesDTO): Promise<IComplementCategory>;
   update(complementCategory: IComplementCategory): Promise<IComplementCategory>;
   delete(id: string): Promise<void>;

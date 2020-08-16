@@ -48,6 +48,10 @@ class ComplementCategoriesRepository implements IComplementCategoriesRepository 
 
     return complementCategory;
   }
+
+  public async delete(id: string): Promise<void> {
+    this.complementCategories = this.complementCategories.filter(complementCategory => complementCategory.id !== id);
+  }
 }
 
 export default ComplementCategoriesRepository;

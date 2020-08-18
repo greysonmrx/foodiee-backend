@@ -18,6 +18,9 @@ import ProductCategoriesRepository from '@modules/product_categories/infra/typeo
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 
+import IComplementCategory from '@modules/complement_categories/repositories/IComplementCategoriesRepository';
+import ComplementCategoriesRepository from '@modules/complement_categories/infra/typeorm/repositories/ComplementCategoriesRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IFilesRepository>('FilesRepository', FilesRepository);
@@ -27,3 +30,5 @@ container.registerSingleton<ITenantsRepository>('TenantsRepository', TenantsRepo
 container.registerSingleton<IProductCategoriesRepository>('ProductCategoriesRepository', ProductCategoriesRepository);
 
 container.registerSingleton<IProductsRepository>('ProductsRepository', ProductsRepository);
+
+container.registerSingleton<IComplementCategory>('ComplementCategoriesRepository', ComplementCategoriesRepository);

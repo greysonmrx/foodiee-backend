@@ -43,11 +43,6 @@ describe('Delete product', () => {
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM tenants');
-    await connection.query('DELETE FROM products');
-    await connection.query('DELETE FROM files');
-    await connection.query('DELETE FROM product_categories');
     const mainConnection = getConnection();
 
     await connection.close();

@@ -35,9 +35,6 @@ describe('Update product category', () => {
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM tenants');
-    await connection.query('DELETE FROM product_categories');
     const mainConnection = getConnection();
 
     await connection.close();

@@ -34,8 +34,6 @@ describe('Delete user', () => {
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM tenants');
     const mainConnection = getConnection();
 
     await connection.close();

@@ -31,8 +31,6 @@ describe('Update user avatar', () => {
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM files');
     const mainConnection = getConnection();
 
     await connection.close();

@@ -35,9 +35,6 @@ describe('Update tenant', () => {
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM tenants');
-    await connection.query('DELETE FROM files');
     const mainConnection = getConnection();
 
     await connection.close();

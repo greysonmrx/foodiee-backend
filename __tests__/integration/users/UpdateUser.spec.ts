@@ -29,7 +29,6 @@ describe('Update user', () => {
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM users');
     const mainConnection = getConnection();
 
     await connection.close();

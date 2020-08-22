@@ -8,6 +8,12 @@ import ICustomersRepository from '../ICustomersRepository';
 class FakeCustomersRepository implements ICustomersRepository {
   private customers: Customer[] = [];
 
+  public async findById(id: string): Promise<Customer | undefined> {
+    const findCustomer = this.customers.find(customer => customer.id === id);
+
+    return findCustomer;
+  }
+
   public async findByPhone(phone: string): Promise<Customer | undefined> {
     const findCustomer = this.customers.find(customer => customer.phone === phone);
 
@@ -33,6 +39,14 @@ class FakeCustomersRepository implements ICustomersRepository {
     });
 
     this.customers.push(customer);
+
+    return customer;
+  }
+
+  public async update(customer: Customer): Promise<Customer> {
+    const findIndex = this.customers.findIndex(findCustomer => findCustomer.id === customer.id);
+
+    this.customers[findIndex] = customer;
 
     return customer;
   }

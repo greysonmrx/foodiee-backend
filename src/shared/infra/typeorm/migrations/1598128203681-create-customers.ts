@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 class createCustomers1598128203681 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -25,11 +25,6 @@ class createCustomers1598128203681 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'avatar_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
             name: 'phone',
             type: 'integer',
             isUnique: true,
@@ -50,17 +45,6 @@ class createCustomers1598128203681 implements MigrationInterface {
             default: 'now()',
           },
         ],
-      }),
-    );
-
-    await queryRunner.createForeignKey(
-      'customers',
-      new TableForeignKey({
-        columnNames: ['avatar_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'files',
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
       }),
     );
   }

@@ -7,8 +7,6 @@ class Customer implements ICustomer {
 
   email: string;
 
-  avatar_id: string;
-
   phone: string;
 
   social_security: string;

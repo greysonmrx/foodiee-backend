@@ -50,6 +50,10 @@ class FakeCustomersRepository implements ICustomersRepository {
 
     return customer;
   }
+
+  public async delete(id: string): Promise<void> {
+    this.customers = this.customers.filter(customer => customer.id !== id);
+  }
 }
 
 export default FakeCustomersRepository;

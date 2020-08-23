@@ -1,7 +1,9 @@
 import { v4 } from 'uuid';
+
+import AppError from '../../../src/shared/errors/AppError';
+
 import FakeCustomersRepository from '../../../src/modules/customers/repositories/fakes/FakeCustomersRepository';
 import UpdateCustomerService from '../../../src/modules/customers/services/UpdateCustomerService';
-import AppError from '../../../src/shared/errors/AppError';
 
 let fakeCustomersRepository: FakeCustomersRepository;
 let updateCustomer: UpdateCustomerService;

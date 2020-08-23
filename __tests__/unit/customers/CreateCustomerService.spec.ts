@@ -1,6 +1,7 @@
+import AppError from '../../../src/shared/errors/AppError';
+
 import FakeCustomersRepository from '../../../src/modules/customers/repositories/fakes/FakeCustomersRepository';
 import CreateCustomerService from '../../../src/modules/customers/services/CreateCustomerService';
-import AppError from '../../../src/shared/errors/AppError';
 
 let fakeCustomersRepository: FakeCustomersRepository;
 let createCustomer: CreateCustomerService;

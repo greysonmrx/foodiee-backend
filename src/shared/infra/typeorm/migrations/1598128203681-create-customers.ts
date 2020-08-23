@@ -26,12 +26,12 @@ class createCustomers1598128203681 implements MigrationInterface {
           },
           {
             name: 'phone',
-            type: 'integer',
+            type: 'varchar',
             isUnique: true,
           },
           {
             name: 'social_security',
-            type: 'integer',
+            type: 'varchar',
             isNullable: true,
           },
           {

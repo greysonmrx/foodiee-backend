@@ -3,21 +3,21 @@ import { v4 } from 'uuid';
 import AppError from '../../../src/shared/errors/AppError';
 
 import UpdateTenantLogoService from '../../../src/modules/tenants/services/UpdateTenantLogoService';
-import TenantsRepostiory from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
+import FakeTenantsRepository from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 import FakeFilesRepository from '../../../src/modules/files/repositories/fakes/FakeFilesRepository';
 import FakeStorageProvider from '../../../src/modules/files/providers/StorageProvider/fakes/FakeStorageProvider';
 
 let fakeFilesRepository: FakeFilesRepository;
-let tenantsRepostiory: TenantsRepostiory;
+let fakeTenantsRepository: FakeTenantsRepository;
 let fakeStorageProvider: FakeStorageProvider;
 let updateLogoTenant: UpdateTenantLogoService;
 
 describe('Update Tenant Logo Service', () => {
   beforeAll(() => {
     fakeFilesRepository = new FakeFilesRepository();
-    tenantsRepostiory = new TenantsRepostiory();
+    fakeTenantsRepository = new FakeTenantsRepository();
     fakeStorageProvider = new FakeStorageProvider();
-    updateLogoTenant = new UpdateTenantLogoService(tenantsRepostiory, fakeFilesRepository, fakeStorageProvider);
+    updateLogoTenant = new UpdateTenantLogoService(fakeTenantsRepository, fakeFilesRepository, fakeStorageProvider);
   });
 
   it('should be able to update a tenant logo', async () => {
@@ -26,7 +26,7 @@ describe('Update Tenant Logo Service', () => {
       path: 'filePath.jpeg',
     });
 
-    const { id: tenant_id } = await tenantsRepostiory.create({
+    const { id: tenant_id } = await fakeTenantsRepository.create({
       name: "McDonald's",
       slug: 'mc-donalds',
     });
@@ -47,7 +47,7 @@ describe('Update Tenant Logo Service', () => {
       path: 'filePath2.jpeg',
     });
 
-    const tenant = await tenantsRepostiory.create({
+    const tenant = await fakeTenantsRepository.create({
       name: "McDonald's",
       slug: 'mc-donalds',
     });

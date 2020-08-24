@@ -1,22 +1,22 @@
 import ListTenantsService from '../../../src/modules/tenants/services/ListTenantsService';
-import TenantsRepostiory from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
+import FakeTenantsRepository from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 
-let tenantsRepostiory: TenantsRepostiory;
+let fakeTenantsRepository: FakeTenantsRepository;
 let listTenants: ListTenantsService;
 
 describe('List Tenants Service', () => {
   beforeAll(() => {
-    tenantsRepostiory = new TenantsRepostiory();
-    listTenants = new ListTenantsService(tenantsRepostiory);
+    fakeTenantsRepository = new FakeTenantsRepository();
+    listTenants = new ListTenantsService(fakeTenantsRepository);
   });
 
   it('should be able to list all tenants', async () => {
-    await tenantsRepostiory.create({
+    await fakeTenantsRepository.create({
       name: "McDonald's",
       slug: 'mc-donalds',
     });
 
-    await tenantsRepostiory.create({
+    await fakeTenantsRepository.create({
       name: "Bob's",
       slug: 'bobs',
     });

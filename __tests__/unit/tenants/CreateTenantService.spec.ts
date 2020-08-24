@@ -1,15 +1,15 @@
 import AppError from '../../../src/shared/errors/AppError';
 
 import CreateTenantService from '../../../src/modules/tenants/services/CreateTenantService';
-import TenantsRepostiory from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
+import FakeTenantsRepository from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 
-let tenantsRepostiory: TenantsRepostiory;
+let fakeTenantsRepository: FakeTenantsRepository;
 let createTenant: CreateTenantService;
 
 describe('Create Tenant Service', () => {
   beforeAll(() => {
-    tenantsRepostiory = new TenantsRepostiory();
-    createTenant = new CreateTenantService(tenantsRepostiory);
+    fakeTenantsRepository = new FakeTenantsRepository();
+    createTenant = new CreateTenantService(fakeTenantsRepository);
   });
 
   it('should be able to create a tenant', async () => {
@@ -19,7 +19,7 @@ describe('Create Tenant Service', () => {
   });
 
   it('should not be able to create a tenant with duplicate slug', async () => {
-    await tenantsRepostiory.create({ name: "McDonald's", slug: 'mc-donalds' });
+    await fakeTenantsRepository.create({ name: "McDonald's", slug: 'mc-donalds' });
 
     await expect(
       createTenant.execute({

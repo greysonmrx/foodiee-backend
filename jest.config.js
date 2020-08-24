@@ -22,10 +22,19 @@ module.exports = {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
+    "<rootDir>/src/config/*.ts",
     "<rootDir>/src/modules/**/services/*.ts",
+    "<rootDir>/src/modules/**/repositories/fakes/*.ts",
+    "<rootDir>/src/modules/**/entities/fakes/*.ts",
+    "<rootDir>/src/modules/**/providers/**/fakes/*.ts",
     "<rootDir>/src/modules/**/infra/http/controllers/*.ts",
     "<rootDir>/src/modules/**/infra/http/routes/*.routes.ts",
-    "<rootDir>/src/modules/**/infra/http/validators/*.ts"
+    "<rootDir>/src/modules/**/infra/http/validators/*.ts",
+    "<rootDir>/src/modules/**/infra/http/middlewares/*.ts",
+    "<rootDir>/src/shared/container/*.ts",
+    "<rootDir>/src/shared/errors/*.ts",
+    "<rootDir>/src/shared/infra/http/routes/*.ts",
+    "<rootDir>/src/shared/infra/http/app.ts",
   ],
 
   // The directory where Jest should output its coverage files

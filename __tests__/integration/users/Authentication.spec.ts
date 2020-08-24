@@ -23,7 +23,6 @@ describe('Authentication', () => {
   });
 
   afterAll(async () => {
-    await connection.query('DELETE FROM users');
     const mainConnection = getConnection();
 
     await connection.close();

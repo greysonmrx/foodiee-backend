@@ -1,7 +1,8 @@
 import request from 'supertest';
+
 import app from '../../src/shared/infra/http/app';
 
-export default async function getTokenJWT(email: string, password: string): Promise<string> {
+async function getUserTokenJWT(email: string, password: string): Promise<string> {
   const response = await request(app).post('/sessions').send({
     email,
     password,
@@ -9,3 +10,5 @@ export default async function getTokenJWT(email: string, password: string): Prom
 
   return response.body.token;
 }
+
+export default getUserTokenJWT;

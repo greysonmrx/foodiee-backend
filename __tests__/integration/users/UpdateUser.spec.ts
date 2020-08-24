@@ -5,7 +5,7 @@ import { runSeeder } from 'typeorm-seeding';
 import User from '../../../src/modules/users/infra/typeorm/entities/User';
 import TenantUserSeed from '../../../src/shared/infra/typeorm/seeds/create-tenant-user';
 import createConnection from '../../../src/shared/infra/typeorm/index';
-import getTokenJWT from '../../utils/getTokenJWT';
+import getUserTokenJWT from '../../utils/getUserTokenJWT';
 
 import app from '../../../src/shared/infra/http/app';
 
@@ -21,7 +21,7 @@ describe('Update user', () => {
 
   beforeEach(async () => {
     await runSeeder(TenantUserSeed);
-    token = await getTokenJWT('fakeuser@tenant.com.br', '123456');
+    token = await getUserTokenJWT('fakeuser@tenant.com.br', '123456');
   });
 
   afterEach(async () => {

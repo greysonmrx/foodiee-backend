@@ -80,7 +80,7 @@ describe('Validate Customer Token Service', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should not be able to reset the password if passed more than fifteen minutes', async () => {
+  it('should not be able to validate a customer token if passed more than fifteen minutes', async () => {
     const { id: customer_id } = await fakeCustomersRepository.create({
       name: 'Greyson Mascarenhas Santos Filho',
       phone: '82999999999',

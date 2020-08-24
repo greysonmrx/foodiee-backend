@@ -2,6 +2,7 @@ import { container } from 'tsyringe';
 
 import '@modules/users/providers';
 import '@modules/files/providers';
+import '@modules/customers/providers';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
@@ -18,11 +19,17 @@ import ProductCategoriesRepository from '@modules/product_categories/infra/typeo
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 
-import IComplementCategory from '@modules/complement_categories/repositories/IComplementCategoriesRepository';
+import IComplementCategoriesRepository from '@modules/complement_categories/repositories/IComplementCategoriesRepository';
 import ComplementCategoriesRepository from '@modules/complement_categories/infra/typeorm/repositories/ComplementCategoriesRepository';
 
-import IComplement from '@modules/complements/repositories/IComplementsRepository';
+import IComplementsRepository from '@modules/complements/repositories/IComplementsRepository';
 import ComplementsRepository from '@modules/complements/infra/typeorm/repositories/ComplementsRepository';
+
+import ICustomersRepository from '@modules/customers/repositories/ICustomersRepository';
+import CustomersRepository from '@modules/customers/infra/typeorm/repositories/CustomersRepository';
+
+import ICustomerTokensRepository from '@modules/customers/repositories/ICustomerTokensRepository';
+import CustomerTokensRepository from '@modules/customers/infra/typeorm/repositories/CustomerTokensRepository';
 
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
@@ -34,6 +41,13 @@ container.registerSingleton<IProductCategoriesRepository>('ProductCategoriesRepo
 
 container.registerSingleton<IProductsRepository>('ProductsRepository', ProductsRepository);
 
-container.registerSingleton<IComplementCategory>('ComplementCategoriesRepository', ComplementCategoriesRepository);
+container.registerSingleton<IComplementCategoriesRepository>(
+  'ComplementCategoriesRepository',
+  ComplementCategoriesRepository,
+);
 
-container.registerSingleton<IComplement>('ComplementsRepository', ComplementsRepository);
+container.registerSingleton<IComplementsRepository>('ComplementsRepository', ComplementsRepository);
+
+container.registerSingleton<ICustomersRepository>('CustomersRepository', CustomersRepository);
+
+container.registerSingleton<ICustomerTokensRepository>('CustomerTokensRepository', CustomerTokensRepository);

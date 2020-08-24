@@ -7,7 +7,7 @@ import Tenant from '../../../src/modules/tenants/infra/typeorm/entities/Tenant';
 import ProductCategory from '../../../src/modules/product_categories/infra/typeorm/entities/ProductCategory';
 import TenantAdminSeed from '../../../src/shared/infra/typeorm/seeds/create-tenant-admin';
 import createConnection from '../../../src/shared/infra/typeorm/index';
-import getTokenJWT from '../../utils/getTokenJWT';
+import getUserTokenJWT from '../../utils/getUserTokenJWT';
 
 import app from '../../../src/shared/infra/http/app';
 
@@ -25,7 +25,7 @@ describe('List product categories', () => {
 
   beforeEach(async () => {
     await runSeeder(TenantAdminSeed);
-    token = await getTokenJWT('fakeadmin@tenant.com.br', '123456');
+    token = await getUserTokenJWT('fakeadmin@tenant.com.br', '123456');
   });
 
   afterEach(async () => {

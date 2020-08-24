@@ -25,6 +25,7 @@ describe('Update Customer Service', () => {
       id,
       name: 'Lucas Macedo da Silva',
       phone: '82888888888',
+      social_security: '80837744563',
     });
 
     expect(customer).toHaveProperty('id');
@@ -36,6 +37,7 @@ describe('Update Customer Service', () => {
         id: v4(),
         name: 'Lucas Macedo da Silva',
         phone: '82888888888',
+        social_security: '80837744563',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -58,6 +60,7 @@ describe('Update Customer Service', () => {
         id,
         name: 'Greyson Mascarenhas Santos Filho',
         phone: '82999999999',
+        social_security: '80837744563',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

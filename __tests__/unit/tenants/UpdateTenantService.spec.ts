@@ -3,19 +3,19 @@ import { v4 } from 'uuid';
 import AppError from '../../../src/shared/errors/AppError';
 
 import UpdateTenantService from '../../../src/modules/tenants/services/UpdateTenantService';
-import TenantsRepostiory from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
+import FakeTenantsRepository from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 
-let tenantsRepostiory: TenantsRepostiory;
+let fakeTenantsRepository: FakeTenantsRepository;
 let updateTenant: UpdateTenantService;
 
 describe('Update Tenant Service', () => {
   beforeAll(() => {
-    tenantsRepostiory = new TenantsRepostiory();
-    updateTenant = new UpdateTenantService(tenantsRepostiory);
+    fakeTenantsRepository = new FakeTenantsRepository();
+    updateTenant = new UpdateTenantService(fakeTenantsRepository);
   });
 
   it('should be able to update a tenant', async () => {
-    const { id: tenant_id } = await tenantsRepostiory.create({
+    const { id: tenant_id } = await fakeTenantsRepository.create({
       name: "McDonald's",
       slug: 'mc-donalds',
     });
@@ -34,12 +34,12 @@ describe('Update Tenant Service', () => {
   });
 
   it('should not be able to update a tenant with duplicate slug', async () => {
-    await tenantsRepostiory.create({
+    await fakeTenantsRepository.create({
       name: "McDonald's",
       slug: 'mc-donalds',
     });
 
-    const { id: tenant_id } = await tenantsRepostiory.create({
+    const { id: tenant_id } = await fakeTenantsRepository.create({
       name: "Bob's",
       slug: 'bobs',
     });

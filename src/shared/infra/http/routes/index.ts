@@ -9,6 +9,8 @@ import productCategoriesRouter from '@modules/product_categories/infra/http/rout
 import productsRouter from '@modules/products/infra/http/routes/products.routes';
 import complementCategoriesRouter from '@modules/complement_categories/infra/http/routes/complementCategories.routes';
 import complementsRouter from '@modules/complements/infra/http/routes/complements.routes';
+import customersRouter from '@modules/customers/infra/http/routes/customers.routes';
+import customerTokensRouter from '@modules/customers/infra/http/routes/customerTokens.routes';
 
 const routes = Router();
 
@@ -21,5 +23,7 @@ routes.use('/product_categories', productCategoriesRouter);
 routes.use('/products', productsRouter);
 routes.use('/complement_categories', complementCategoriesRouter);
 routes.use('/complements', complementsRouter);
+routes.use('/customers', customersRouter);
+routes.use('/customer_tokens', customerTokensRouter);
 
 export default routes;

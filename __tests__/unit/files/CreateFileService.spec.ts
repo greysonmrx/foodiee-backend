@@ -16,6 +16,10 @@ describe('Create File Service', () => {
   it('should be able to create a new file', async () => {
     const file = await createFile.execute({ name: 'fileName.jpeg', path: 'filePath.jpeg' });
 
+    const findFile = await fakeFilesRepository.findByPath('filePath.jpeg');
+
+    expect(findFile).toBeTruthy();
+
     expect(file).toHaveProperty('id');
   });
 });

@@ -41,6 +41,10 @@ describe('Update User Avatar Service', () => {
       tenant_id,
     });
 
+    const findFile = await fakeFilesRepository.findByPath('filePath.jpeg');
+
+    expect(findFile).toBeTruthy();
+
     await expect(updateUserAvatar.execute({ user_id, avatar_id })).resolves.toHaveProperty('id');
   });
 

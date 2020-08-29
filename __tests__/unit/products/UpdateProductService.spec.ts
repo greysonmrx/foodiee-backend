@@ -6,14 +6,14 @@ import FakeStorageProvider from '../../../src/modules/files/providers/StoragePro
 import FakeProductCategoriesRepository from '../../../src/modules/product_categories/repositories/fakes/FakeProductCategoriesRepository';
 import FakeTenantsRepository from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 import FakeProductsRepository from '../../../src/modules/products/repositories/fakes/FakeProductsRepository';
-import FakeFilesRespository from '../../../src/modules/files/repositories/fakes/FakeFilesRepository';
+import FakeFilesRepository from '../../../src/modules/files/repositories/fakes/FakeFilesRepository';
 import UpdateProductService from '../../../src/modules/products/services/UpdateProductService';
 
 let fakeStorageProvider: FakeStorageProvider;
 let fakeTenantsRepository: FakeTenantsRepository;
 let fakeProductCategoriesRepository: FakeProductCategoriesRepository;
 let fakeProductsRepository: FakeProductsRepository;
-let fakeFilesRespository: FakeFilesRespository;
+let fakeFilesRepository: FakeFilesRepository;
 let updateProduct: UpdateProductService;
 
 describe('Update Product Service', () => {
@@ -22,11 +22,11 @@ describe('Update Product Service', () => {
     fakeProductCategoriesRepository = new FakeProductCategoriesRepository();
     fakeTenantsRepository = new FakeTenantsRepository();
     fakeProductsRepository = new FakeProductsRepository();
-    fakeFilesRespository = new FakeFilesRespository();
+    fakeFilesRepository = new FakeFilesRepository();
     updateProduct = new UpdateProductService(
       fakeProductsRepository,
       fakeTenantsRepository,
-      fakeFilesRespository,
+      fakeFilesRepository,
       fakeProductCategoriesRepository,
       fakeStorageProvider,
     );
@@ -43,7 +43,7 @@ describe('Update Product Service', () => {
       tenant_id,
     });
 
-    const { id: image_id } = await fakeFilesRespository.create({
+    const { id: image_id } = await fakeFilesRepository.create({
       name: 'fileName.png',
       path: 'filePath.png',
     });
@@ -80,7 +80,7 @@ describe('Update Product Service', () => {
       tenant_id,
     });
 
-    const { id: image_id_1 } = await fakeFilesRespository.create({
+    const { id: image_id_1 } = await fakeFilesRepository.create({
       name: 'fileName1.png',
       path: 'filePath1.png',
     });
@@ -96,7 +96,7 @@ describe('Update Product Service', () => {
       paused: false,
     });
 
-    const { id: image_id_2 } = await fakeFilesRespository.create({
+    const { id: image_id_2 } = await fakeFilesRepository.create({
       name: 'fileName2.png',
       path: 'filePath2.png',
     });
@@ -118,7 +118,7 @@ describe('Update Product Service', () => {
       tenant_id: v4(),
     });
 
-    const { id: image_id } = await fakeFilesRespository.create({
+    const { id: image_id } = await fakeFilesRepository.create({
       name: 'fileName.png',
       path: 'filePath.png',
     });
@@ -148,7 +148,7 @@ describe('Update Product Service', () => {
       slug: 'mc-donalds',
     });
 
-    const { id: image_id } = await fakeFilesRespository.create({
+    const { id: image_id } = await fakeFilesRepository.create({
       name: 'fileName.png',
       path: 'filePath.png',
     });
@@ -183,7 +183,7 @@ describe('Update Product Service', () => {
       tenant_id,
     });
 
-    const { id: image_id } = await fakeFilesRespository.create({
+    const { id: image_id } = await fakeFilesRepository.create({
       name: 'fileName.png',
       path: 'filePath.png',
     });

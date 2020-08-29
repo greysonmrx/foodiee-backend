@@ -5,13 +5,13 @@ import AppError from '../../../src/shared/errors/AppError';
 import FakeProductCategoriesRepository from '../../../src/modules/product_categories/repositories/fakes/FakeProductCategoriesRepository';
 import FakeTenantsRepository from '../../../src/modules/tenants/repositories/fakes/FakeTenantsRepository';
 import FakeProductsRepository from '../../../src/modules/products/repositories/fakes/FakeProductsRepository';
-import FakeFilesRespository from '../../../src/modules/files/repositories/fakes/FakeFilesRepository';
+import FakeFilesRepository from '../../../src/modules/files/repositories/fakes/FakeFilesRepository';
 import CreateProductService from '../../../src/modules/products/services/CreateProductService';
 
 let fakeTenantsRepository: FakeTenantsRepository;
 let fakeProductCategoriesRepository: FakeProductCategoriesRepository;
 let fakeProductsRepository: FakeProductsRepository;
-let fakeFilesRespository: FakeFilesRespository;
+let fakeFilesRepository: FakeFilesRepository;
 let createProduct: CreateProductService;
 
 describe('Create Product Service', () => {
@@ -19,11 +19,11 @@ describe('Create Product Service', () => {
     fakeProductCategoriesRepository = new FakeProductCategoriesRepository();
     fakeTenantsRepository = new FakeTenantsRepository();
     fakeProductsRepository = new FakeProductsRepository();
-    fakeFilesRespository = new FakeFilesRespository();
+    fakeFilesRepository = new FakeFilesRepository();
     createProduct = new CreateProductService(
       fakeProductsRepository,
       fakeTenantsRepository,
-      fakeFilesRespository,
+      fakeFilesRepository,
       fakeProductCategoriesRepository,
     );
   });
@@ -39,10 +39,14 @@ describe('Create Product Service', () => {
       tenant_id,
     });
 
-    const { id: image_id } = await fakeFilesRespository.create({
+    const { id: image_id } = await fakeFilesRepository.create({
       name: 'fileName.png',
       path: 'filePath.png',
     });
+
+    const findFile = await fakeFilesRepository.findByPath('filePath.png');
+
+    expect(findFile).toBeTruthy();
 
     await expect(
       createProduct.execute({
@@ -64,7 +68,7 @@ describe('Create Product Service', () => {
       tenant_id: v4(),
     });
 
-    const { id: image_id } = await fakeFilesRespository.create({
+    const { id: image_id } = await fakeFilesRepository.create({
       name: 'fileName.png',
       path: 'filePath.png',
     });
@@ -89,7 +93,7 @@ describe('Create Product Service', () => {
       slug: 'mc-donalds',
     });
 
-    const { id: image_id } = await fakeFilesRespository.create({
+    const { id: image_id } = await fakeFilesRepository.create({
       name: 'fileName.png',
       path: 'filePath.png',
     });

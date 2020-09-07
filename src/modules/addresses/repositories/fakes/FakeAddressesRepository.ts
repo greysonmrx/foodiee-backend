@@ -8,6 +8,12 @@ import IAddressesRepository from '../IAddressesRepository';
 class FakeAddressesRepository implements IAddressesRepository {
   private addresses: Address[] = [];
 
+  public async findById(id: string): Promise<Address | undefined> {
+    const findAddress = this.addresses.find(address => address.id === id);
+
+    return findAddress;
+  }
+
   public async create({
     customer_id,
     name,
@@ -39,6 +45,14 @@ class FakeAddressesRepository implements IAddressesRepository {
     });
 
     this.addresses.push(address);
+
+    return address;
+  }
+
+  public async update(address: Address): Promise<Address> {
+    const findIndex = this.addresses.findIndex(findAddress => findAddress.id === address.id);
+
+    this.addresses[findIndex] = address;
 
     return address;
   }

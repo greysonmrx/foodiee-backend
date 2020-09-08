@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
 
 import IAddressesRepository from '../repositories/IAddressesRepository';
@@ -16,8 +18,12 @@ interface Request {
   longitude: number;
 }
 
+@injectable()
 class UpdateAddressService {
-  constructor(private addressesRepository: IAddressesRepository) {
+  constructor(
+    @inject('AddressesRepository')
+    private addressesRepository: IAddressesRepository,
+  ) {
     // Anything
   }
 

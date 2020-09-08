@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
 
 import ICustomersRepository from '@modules/customers/repositories/ICustomersRepository';
@@ -8,8 +10,15 @@ interface Request {
   customer_id: string;
 }
 
+@injectable()
 class ListAddressesService {
-  constructor(private addressesRepository: IAddressesRepository, private customersRepository: ICustomersRepository) {
+  constructor(
+    @inject('AddressesRepository')
+    private addressesRepository: IAddressesRepository,
+
+    @inject('CustomersRepository')
+    private customersRepository: ICustomersRepository,
+  ) {
     // Anything
   }
 

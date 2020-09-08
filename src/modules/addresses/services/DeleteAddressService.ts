@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
 
 import IAddressesRepository from '../repositories/IAddressesRepository';
@@ -6,8 +8,12 @@ interface Request {
   id: string;
 }
 
+@injectable()
 class DeleteAddressService {
-  constructor(private addressesRepository: IAddressesRepository) {
+  constructor(
+    @inject('AddressesRepository')
+    private addressesRepository: IAddressesRepository,
+  ) {
     // Anything
   }
 

@@ -14,6 +14,12 @@ class FakeAddressesRepository implements IAddressesRepository {
     return findAddress;
   }
 
+  public async findAllByCustomer(customer_id: string): Promise<Address[]> {
+    const allAddresses = this.addresses.filter(address => address.customer_id === customer_id);
+
+    return allAddresses;
+  }
+
   public async create({
     customer_id,
     name,

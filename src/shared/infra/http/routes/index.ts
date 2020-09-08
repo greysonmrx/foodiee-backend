@@ -11,6 +11,7 @@ import complementCategoriesRouter from '@modules/complement_categories/infra/htt
 import complementsRouter from '@modules/complements/infra/http/routes/complements.routes';
 import customersRouter from '@modules/customers/infra/http/routes/customers.routes';
 import customerTokensRouter from '@modules/customers/infra/http/routes/customerTokens.routes';
+import addressesRouter from '@modules/addresses/infra/http/routes/addresses.routes';
 
 const routes = Router();
 
@@ -25,5 +26,6 @@ routes.use('/complement_categories', complementCategoriesRouter);
 routes.use('/complements', complementsRouter);
 routes.use('/customers', customersRouter);
 routes.use('/customer_tokens', customerTokensRouter);
+routes.use('/addresses', addressesRouter);
 
 export default routes;

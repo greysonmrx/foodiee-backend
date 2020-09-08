@@ -31,6 +31,9 @@ import CustomersRepository from '@modules/customers/infra/typeorm/repositories/C
 import ICustomerTokensRepository from '@modules/customers/repositories/ICustomerTokensRepository';
 import CustomerTokensRepository from '@modules/customers/infra/typeorm/repositories/CustomerTokensRepository';
 
+import IAddressesRepository from '@modules/addresses/repositories/IAddressesRepository';
+import AddressesRepository from '@modules/addresses/infra/typeorm/repositories/AddressesRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IFilesRepository>('FilesRepository', FilesRepository);
@@ -51,3 +54,5 @@ container.registerSingleton<IComplementsRepository>('ComplementsRepository', Com
 container.registerSingleton<ICustomersRepository>('CustomersRepository', CustomersRepository);
 
 container.registerSingleton<ICustomerTokensRepository>('CustomerTokensRepository', CustomerTokensRepository);
+
+container.registerSingleton<IAddressesRepository>('AddressesRepository', AddressesRepository);

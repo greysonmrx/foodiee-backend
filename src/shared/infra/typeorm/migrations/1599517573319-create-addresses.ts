@@ -46,10 +46,6 @@ class createAddresses1599517573319 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'slug',
-            type: 'varchar',
-          },
-          {
             name: 'complement',
             type: 'text',
             isNullable: true,
